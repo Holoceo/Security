@@ -8,36 +8,43 @@ import android.content.SharedPreferences;
  */
 public class PrefsUtil {
     public static final String PREFS_NAME = "MyPrefsFile";
+    public static final String KEY_TOKEN = "token";
+    public static final String KEY_AUTHORIZED = "is_authorized";
+    public static final String KEY_PIN_HASH = "pin_hash";
+
+    public static SharedPreferences getPrefs(Context context) {
+        return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+    }
 
     public static void writeToken(Context context, String token) {
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("token", token);
-        editor.putBoolean("isAuthorized", true);
+        SharedPreferences prefs = getPrefs(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(KEY_TOKEN, token);
+        editor.putBoolean(KEY_AUTHORIZED, true);
         editor.commit();
     }
 
     public static String readToken(Context context) {
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String token = settings.getString("token", "");
+        SharedPreferences prefs = getPrefs(context);
+        String token = prefs.getString(KEY_TOKEN, "");
         return token;
     }
 
     public static boolean isAuthorized(Context context) {
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return settings.getBoolean("isAuthorized", false);
+        SharedPreferences prefs = getPrefs(context);
+        return prefs.getBoolean(KEY_AUTHORIZED, false);
     }
 
     public static void writePinHash(Context context, String pinHash) {
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("pinHash", pinHash);
+        SharedPreferences prefs = getPrefs(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(KEY_PIN_HASH, pinHash);
         editor.commit();
     }
 
     public static String readPinHash(Context context) {
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String pinHash = settings.getString("pinHash", "");
+        SharedPreferences prefs = getPrefs(context);
+        String pinHash = prefs.getString(KEY_PIN_HASH, "");
         return pinHash;
     }
 }
