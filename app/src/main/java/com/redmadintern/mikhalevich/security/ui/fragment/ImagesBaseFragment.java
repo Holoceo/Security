@@ -60,14 +60,10 @@ public abstract class ImagesBaseFragment extends Fragment implements ImagesLoade
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Фото");
-
         galleryAdapter = new GalleryAdapter(getActivity(), R.layout.item_stream, new ArrayList<String>());
         gridView.setAdapter(galleryAdapter);
         gridView.setOnItemClickListener(this);
-
-        if (savedInstanceState == null)
-            loadImages();
+        loadImages();
     }
 
     protected void loadImages() {
@@ -83,13 +79,9 @@ public abstract class ImagesBaseFragment extends Fragment implements ImagesLoade
 
     @Override
     public void success(List<String> uris) {
-        if (uris == null || uris.size() == 0)
-            return;
-
         galleryAdapter.clear();
         galleryAdapter.addAll(uris);
         galleryAdapter.notifyDataSetChanged();
-
         setTransitionShown(progressBar, gridView);
     }
 
@@ -123,92 +115,4 @@ public abstract class ImagesBaseFragment extends Fragment implements ImagesLoade
             to.setVisibility(View.VISIBLE);
         }
     }
-
-    /*@Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.all:
-                loadMyPhotos();
-                break;
-
-            case R.id.saved:
-                loadSavedPhotos();
-                break;
-
-            case R.id.search:
-                laSearch.setVisibility(View.VISIBLE);
-                galleryAdapter.clear();
-                galleryAdapter.notifyDataSetChanged();
-                break;
-
-            case R.id.search_user:
-                loadUserPhotos(editText.getText().toString());
-                break;
-        }
-    }*/
-
-    /*private void loadMyPhotos() {
-        laSearch.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
-        service.fetchSelfMedia(new Callback<List<String>>() {
-            @Override
-            public void success(List<String> strings, Response response) {
-                progressBar.setVisibility(View.GONE);
-                galleryAdapter.clear();
-                galleryAdapter.addAll(strings);
-                galleryAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(getActivity(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }*/
-
-    /*private void loadUserPhotos(String userName) {
-        progressBar.setVisibility(View.VISIBLE);
-        service.fetchUserId(userName, new Callback<String>() {
-            @Override
-            public void success(String s, Response response) {
-                service.fetchUserMedia(s, new Callback<List<String>>() {
-                    @Override
-                    public void success(List<String> strings, Response response) {
-                        progressBar.setVisibility(View.GONE);
-                        galleryAdapter.addAll(strings);
-                        galleryAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(getActivity(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                progressBar.setVisibility(View.GONE);
-                Toast.makeText(getActivity(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }*/
-
-    /*private void loadSavedPhotos() {
-        laSearch.setVisibility(View.GONE);
-        File imagesDir = getActivity().getFilesDir();
-        String absPath = imagesDir.getAbsolutePath();
-
-        String[] list = imagesDir.list();
-        List<String> locations = new ArrayList<>(list.length);
-        for (String image : list) {
-            String filePath = "file://"+absPath+"/"+image;
-            locations.add(filePath);
-        }
-        galleryAdapter.clear();
-        galleryAdapter.addAll(locations);
-        galleryAdapter.notifyDataSetChanged();
-    }*/
 }

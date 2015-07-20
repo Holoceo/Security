@@ -15,25 +15,7 @@ import retrofit.client.Response;
  * Created by android on 20/07/15.
  */
 public class UserImagesFragment extends ImagesBaseFragment {
-    private static final String KEY_NAME = "username";
     private String userName = "sky";
-
-    public static UserImagesFragment newInstance(String userName) {
-        Bundle args = new Bundle();
-        args.putString(KEY_NAME, userName);
-        UserImagesFragment fragment = new UserImagesFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
-        if (args != null) {
-            userName = args.getString(KEY_NAME);
-        }
-    }
 
     @Override
     protected void onLoadImages(final ImagesLoadedCallback cb) {

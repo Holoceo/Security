@@ -91,7 +91,6 @@ public class PinFragment extends DialogFragment {
                                 Service service = Service.getInstance();
                                 service.setToken(decryptedToken);
                                 service.setEncryptKey(encryptKey);
-                                Toast.makeText(getActivity(), "Все ок", Toast.LENGTH_LONG).show();
                                 showStream();
                             } catch (Exception e) {
                                 Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
@@ -106,7 +105,6 @@ public class PinFragment extends DialogFragment {
                             String encryptedToken = EncryptUtil.encrypt(encryptKey, token);
                             PrefsUtil.writeToken(getActivity(), encryptedToken);
                             Service.getInstance().setToken(token);
-                            Toast.makeText(getActivity(), "Авторизация пройдена", Toast.LENGTH_LONG).show();
                             showStream();
                         } catch (Exception e) {
                             Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
