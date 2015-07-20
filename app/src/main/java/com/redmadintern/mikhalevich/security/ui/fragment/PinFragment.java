@@ -10,13 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
-import com.google.common.io.BaseEncoding;
 import com.redmadintern.mikhalevich.security.R;
 import com.redmadintern.mikhalevich.security.controller.operations.Service;
 import com.redmadintern.mikhalevich.security.ui.view.KeyboardView;
@@ -129,7 +125,7 @@ public class PinFragment extends DialogFragment {
     }
 
     private void showStream() {
-        Fragment fragment = new StreamFragment();
+        Fragment fragment = new SectionsFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
