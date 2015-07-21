@@ -32,9 +32,6 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
-        if (RootUtil.isDeviceRooted())
-            Toast.makeText(this, "На вашем телефоне стоит рут", Toast.LENGTH_LONG).show();
-
         if (savedInstanceState == null) {
             boolean isAuthorized = PrefsUtil.isAuthorized(this);
             Fragment fragment;

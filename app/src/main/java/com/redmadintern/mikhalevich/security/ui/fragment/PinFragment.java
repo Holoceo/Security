@@ -19,6 +19,7 @@ import com.redmadintern.mikhalevich.security.ui.view.KeyboardView;
 import com.redmadintern.mikhalevich.security.ui.view.PinView;
 import com.redmadintern.mikhalevich.security.utils.EncryptUtil;
 import com.redmadintern.mikhalevich.security.utils.PrefsUtil;
+import com.redmadintern.mikhalevich.security.utils.RootUtil;
 
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -67,6 +68,8 @@ public class PinFragment extends DialogFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Введите PIN");
+        if (savedInstanceState == null && RootUtil.isDeviceRooted())
+            Toast.makeText(getActivity(), "На вашем телефоне стоит рут", Toast.LENGTH_LONG).show();
 
         keyboardView.setClickListener(new KeyboardView.OnClickListener() {
             @Override

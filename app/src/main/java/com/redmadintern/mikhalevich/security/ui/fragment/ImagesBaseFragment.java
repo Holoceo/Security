@@ -60,10 +60,15 @@ public abstract class ImagesBaseFragment extends Fragment implements ImagesLoade
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        galleryAdapter = new GalleryAdapter(getActivity(), R.layout.item_stream, new ArrayList<String>());
+        if (savedInstanceState == null) {
+            galleryAdapter = new GalleryAdapter(getActivity(), R.layout.item_stream, new ArrayList<String>());
+            loadImages();
+        } else {
+            gridView.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+        }
         gridView.setAdapter(galleryAdapter);
         gridView.setOnItemClickListener(this);
-        loadImages();
     }
 
     protected void loadImages() {
