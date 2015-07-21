@@ -67,9 +67,9 @@ public class PinFragment extends DialogFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Введите PIN");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.enter_pin);
         if (savedInstanceState == null && RootUtil.isDeviceRooted())
-            Toast.makeText(getActivity(), "На вашем телефоне стоит рут", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.root_found, Toast.LENGTH_LONG).show();
 
         keyboardView.setClickListener(new KeyboardView.OnClickListener() {
             @Override
@@ -99,7 +99,7 @@ public class PinFragment extends DialogFragment {
                                 Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            Toast.makeText(getActivity(), "Вы ввели неправильный пин", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), R.string.wrong_pin, Toast.LENGTH_LONG).show();
                         }
                     } else {
                         //Authorization

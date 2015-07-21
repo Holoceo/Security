@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.redmadintern.mikhalevich.security.R;
 import com.redmadintern.mikhalevich.security.controller.network.HttpClient;
+import com.redmadintern.mikhalevich.security.model.server.events.ImageSavedEvent;
 import com.redmadintern.mikhalevich.security.utils.FileUtils;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
@@ -33,6 +34,7 @@ import java.io.ByteArrayOutputStream;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by android on 15/07/15.
@@ -136,8 +138,8 @@ public class ImageDetailFragment extends Fragment{
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
                     byte[] byteArray = byteArrayOutputStream.toByteArray();
 
-                    String path = getActivity().getFilesDir() + "/" + FileUtils.writeImage(getActivity(), byteArray);
-                    return "OK";
+                    String path = FileUtils.writeImage(getActivity(), byteArray);
+                    return path;
                 } catch (Exception e) {
 
                 }
@@ -150,6 +152,8 @@ public class ImageDetailFragment extends Fragment{
             progressBar.setVisibility(View.GONE);
             if (res == null) {
                 Toast.makeText(getActivity(), "Ошибка", Toast.LENGTH_SHORT).show();
+            } else {
+                EventBus.getDefault().post(new ImageSavedEvent(res));
             }
         }
     }

@@ -28,6 +28,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -119,5 +120,10 @@ public abstract class ImagesBaseFragment extends Fragment implements ImagesLoade
                     getActivity(), android.R.anim.fade_in));
             to.setVisibility(View.VISIBLE);
         }
+    }
+
+    protected void addImage(String uri) {
+        galleryAdapter.add(uri);
+        galleryAdapter.notifyDataSetChanged();
     }
 }
