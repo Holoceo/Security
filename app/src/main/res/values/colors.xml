@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#F44336</color>
+    <color name="primary">#ff4433</color>
+    <color name="accent">#ffffff</color>
+    <color name="tab_icon_unselected">#751f17</color>
+    <color name="tab_icon_selected">#ffffff</color>
 </resources>

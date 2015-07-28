@@ -67,7 +67,7 @@ public class PinFragment extends DialogFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.enter_pin);
+        //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.enter_pin);
         if (savedInstanceState == null && RootUtil.isDeviceRooted())
             Toast.makeText(getActivity(), R.string.root_found, Toast.LENGTH_LONG).show();
 

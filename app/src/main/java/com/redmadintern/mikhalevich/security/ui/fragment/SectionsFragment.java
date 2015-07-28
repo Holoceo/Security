@@ -1,5 +1,7 @@
 package com.redmadintern.mikhalevich.security.ui.fragment;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -8,11 +10,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.redmadintern.mikhalevich.security.R;
+import com.redmadintern.mikhalevich.security.controller.adapter.SectionsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +30,17 @@ import butterknife.ButterKnife;
 public class SectionsFragment extends Fragment {
     @Bind(R.id.tabLayout) TabLayout tabLayout;
     @Bind(R.id.viewPager) ViewPager viewPager;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+
+    private int colorTabIconSelected;
+    private int colorTabIconUnselected;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        colorTabIconSelected = getResources().getColor(R.color.tab_icon_selected);
+        colorTabIconUnselected = getResources().getColor(R.color.tab_icon_unselected);
     }
 
     @Nullable
@@ -44,64 +54,49 @@ public class SectionsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.photo);
-        setupViewPager(viewPager);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
-                viewPager.setCurrentItem(position);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        setupViewPager();
+        setupTabs();
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFrag(new MyImagesFragment(), R.string.my);
-        adapter.addFrag(new SavedImagesFragment(), R.string.loaded);
-        adapter.addFrag(new UserImagesFragment(), R.string.search);
+    private void setupTabs() {
+        tabLayout.setOnTabSelectedListener(onTabSelectedListener);
+
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_action_save));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_action_save));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_action_save));
+
+        TabLayout.TabLayoutOnPageChangeListener onPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
+        viewPager.addOnPageChangeListener(onPageChangeListener);
+    }
+
+    private TabLayout.OnTabSelectedListener onTabSelectedListener = new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            int position = tab.getPosition();
+            viewPager.setCurrentItem(position);
+            setTabIconColor(tab, colorTabIconSelected);
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+            setTabIconColor(tab, colorTabIconUnselected);
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
+        }
+    };
+
+    private void setupViewPager() {
+        FragmentPagerAdapter pagerAdapter = new SectionsAdapter(getActivity().getSupportFragmentManager());
         viewPager.setOffscreenPageLimit(3);
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(pagerAdapter);
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFrag(Fragment fragment, int titleResource) {
-            mFragmentList.add(fragment);
-            String title = getResources().getString(titleResource);
-            mFragmentTitleList.add(title);
-        }
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
+    private void setTabIconColor(TabLayout.Tab tab, int color) {
+        tab.getIcon().mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 
 }
