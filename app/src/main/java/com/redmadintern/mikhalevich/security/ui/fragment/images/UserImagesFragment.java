@@ -1,17 +1,22 @@
-package com.redmadintern.mikhalevich.security.ui.fragment;
+package com.redmadintern.mikhalevich.security.ui.fragment.images;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import com.redmadintern.mikhalevich.security.R;
 import com.redmadintern.mikhalevich.security.controller.operations.ImagesLoadedCallback;
 import com.redmadintern.mikhalevich.security.controller.operations.Service;
+import com.redmadintern.mikhalevich.security.model.local.Image;
+import com.redmadintern.mikhalevich.security.model.server.Envelope;
+import com.redmadintern.mikhalevich.security.model.server.media.MediaData;
+import com.redmadintern.mikhalevich.security.utils.ImagesHelper;
 
 import java.util.List;
 
@@ -31,16 +36,31 @@ public class UserImagesFragment extends ImagesBaseFragment {
         setHasOptionsMenu(true);
     }
 
+    /*@Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        View btn = getActionButton();
+        btn.setVisibility(View.VISIBLE);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showUserInputDialog();
+            }
+        });
+    }*/
+
     @Override
     protected void onLoadImages(final ImagesLoadedCallback cb) {
         final Service service = getService();
         service.fetchUserId(userName, new Callback<String>() {
             @Override
             public void success(String s, Response response) {
-                service.fetchUserMedia(s, new Callback<List<String>>() {
+                service.fetchUserMedia(s, getNextMaxId(), new Callback<Envelope<MediaData>>() {
                     @Override
-                    public void success(List<String> strings, Response response) {
-                        cb.success(strings);
+                    public void success(Envelope<MediaData> mediaDataEnvelope, Response response) {
+                        List<Image> images = ImagesHelper.obtainImages(mediaDataEnvelope);
+                        String nextMaxId = mediaDataEnvelope.getPagination().getNextMaxId();
+                        cb.success(images, nextMaxId);
                     }
 
                     @Override

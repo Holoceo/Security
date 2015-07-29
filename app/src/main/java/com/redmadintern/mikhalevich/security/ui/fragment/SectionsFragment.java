@@ -28,8 +28,8 @@ import butterknife.ButterKnife;
  * Created by android on 20/07/15.
  */
 public class SectionsFragment extends Fragment {
-    @Bind(R.id.tabLayout) TabLayout tabLayout;
-    @Bind(R.id.viewPager) ViewPager viewPager;
+    @Bind(R.id.tabs) TabLayout tabLayout;
+    @Bind(R.id.viewpager) ViewPager viewPager;
     @Bind(R.id.toolbar) Toolbar toolbar;
 
     private int colorTabIconSelected;
@@ -48,6 +48,7 @@ public class SectionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sections, container, false);
         ButterKnife.bind(this, view);
+        toolbar.setTitleTextColor(Color.WHITE);
         return view;
     }
 
@@ -62,9 +63,9 @@ public class SectionsFragment extends Fragment {
     private void setupTabs() {
         tabLayout.setOnTabSelectedListener(onTabSelectedListener);
 
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_action_save));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_action_save));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_action_save));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_person));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_archive));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_search));
 
         TabLayout.TabLayoutOnPageChangeListener onPageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabLayout);
         viewPager.addOnPageChangeListener(onPageChangeListener);
@@ -76,6 +77,8 @@ public class SectionsFragment extends Fragment {
             int position = tab.getPosition();
             viewPager.setCurrentItem(position);
             setTabIconColor(tab, colorTabIconSelected);
+            String title = SectionsAdapter.getTitle(position);
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(title);
         }
 
         @Override

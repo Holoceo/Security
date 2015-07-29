@@ -1,17 +1,12 @@
 package com.redmadintern.mikhalevich.security.ui.fragment;
 
-import android.app.DownloadManager;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +19,7 @@ import android.widget.Toast;
 
 import com.redmadintern.mikhalevich.security.R;
 import com.redmadintern.mikhalevich.security.controller.network.HttpClient;
-import com.redmadintern.mikhalevich.security.model.server.events.ImageSavedEvent;
+import com.redmadintern.mikhalevich.security.model.local.events.ImageSavedEvent;
 import com.redmadintern.mikhalevich.security.utils.FileUtils;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="primary">#ff4433</color>
+    <color name="primary_dark">#cc3629</color>
     <color name="accent">#ffffff</color>
     <color name="tab_icon_unselected">#751f17</color>
     <color name="tab_icon_selected">#ffffff</color>
+    <color name="toolbar_back_pressed_white">#26FFFFFF</color>
+    <color name="toolbar_action_pressed">#26000000</color>
 </resources>

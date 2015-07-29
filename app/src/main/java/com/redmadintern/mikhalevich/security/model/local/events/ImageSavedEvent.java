@@ -1,4 +1,4 @@
-package com.redmadintern.mikhalevich.security.model.server.events;
+package com.redmadintern.mikhalevich.security.model.local.events;
 
 /**
  * Created by android on 21/07/15.

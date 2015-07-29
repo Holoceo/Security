@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.redmadintern.mikhalevich.security.ui.fragment.MyImagesFragment;
-import com.redmadintern.mikhalevich.security.ui.fragment.SavedImagesFragment;
-import com.redmadintern.mikhalevich.security.ui.fragment.UserImagesFragment;
+import com.redmadintern.mikhalevich.security.ui.fragment.images.MyImagesFragment;
+import com.redmadintern.mikhalevich.security.ui.fragment.images.SavedImagesFragment;
+import com.redmadintern.mikhalevich.security.ui.fragment.images.UserImagesFragment;
 
 /**
  * Created by Alexander on 28.07.2015.
@@ -38,5 +38,21 @@ public class SectionsAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return NUM_ITEMS;
+    }
+
+    public static String getTitle(int pagePosition) {
+        switch (pagePosition) {
+            case 0:
+                return "Профиль";
+
+            case 1:
+                return "Сохраненные";
+
+            case 2:
+                return "Поиск";
+
+            default:
+                return "";
+        }
     }
 }

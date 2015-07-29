@@ -1,9 +1,10 @@
-package com.redmadintern.mikhalevich.security.ui.fragment;
+package com.redmadintern.mikhalevich.security.ui.fragment.images;
 
 import android.os.Bundle;
 
 import com.redmadintern.mikhalevich.security.controller.operations.ImagesLoadedCallback;
-import com.redmadintern.mikhalevich.security.model.server.events.ImageSavedEvent;
+import com.redmadintern.mikhalevich.security.model.local.Image;
+import com.redmadintern.mikhalevich.security.model.local.events.ImageSavedEvent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,17 +43,19 @@ public class SavedImagesFragment extends ImagesBaseFragment{
 
 
         String[] list = imagesDir.list();
-        List<String> locations = new ArrayList<>(list.length);
+        List<Image> images = new ArrayList<>(list.length);
         for (String image : list) {
             String filePath = "file://"+absPath+"/"+image;
-            locations.add(filePath);
+            Image img = new Image(filePath, filePath);
+            images.add(img);
         }
 
-        cb.success(locations);
+        cb.success(images, null);
     }
 
     public void onEvent(ImageSavedEvent event){
         String filePath = "file://"+absPath+"/"+event.getImageName();
-        addImage(filePath);
+        Image img = new Image(filePath, filePath);
+        addImage(img);
     }
 }

@@ -1,5 +1,6 @@
 package com.redmadintern.mikhalevich.security.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +26,16 @@ import com.redmadintern.mikhalevich.security.utils.RootUtil;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by Alexander on 15.07.2015.
  */
 public class PinFragment extends DialogFragment {
     private static final String KEY_TOKEN = "token";
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     private String token;
     private int currentPinPos;
@@ -61,6 +68,8 @@ public class PinFragment extends DialogFragment {
         View v = inflater.inflate(R.layout.fragment_pin, container, false);
         pinView = new PinView(v);
         keyboardView = new KeyboardView(v);
+        ButterKnife.bind(this, v);
+        toolbar.setTitleTextColor(Color.WHITE);
         return v;
     }
 
@@ -68,8 +77,11 @@ public class PinFragment extends DialogFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.enter_pin);
-        if (savedInstanceState == null && RootUtil.isDeviceRooted())
-            Toast.makeText(getActivity(), R.string.root_found, Toast.LENGTH_LONG).show();
+        //if (savedInstanceState == null && RootUtil.isDeviceRooted())
+        //    Toast.makeText(getActivity(), R.string.root_found, Toast.LENGTH_LONG).show();
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Введите пин для защиты данных");
 
         keyboardView.setClickListener(new KeyboardView.OnClickListener() {
             @Override
@@ -130,6 +142,7 @@ public class PinFragment extends DialogFragment {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         fragmentTransaction.commit();
     }
 }

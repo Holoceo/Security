@@ -5,17 +5,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class Images {
 
-    @SerializedName("low_resolution")
+    @SerializedName("thumbnail")
     @Expose
-    private LowResolution lowResolution;
+    private Image thumbnail;
 
-    /**
-     *
-     * @return
-     * The lowResolution
-     */
-    public LowResolution getLowResolution() {
-        return lowResolution;
+    @SerializedName("standard_resolution")
+    @Expose
+    private Image standardResolution;
+
+    public Image getThumbnail() {
+        return thumbnail;
     }
 
+    public Image getStandardResolution() {
+        return standardResolution;
+    }
 }

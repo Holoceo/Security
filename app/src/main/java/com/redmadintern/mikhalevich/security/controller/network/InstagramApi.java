@@ -16,10 +16,14 @@ public interface InstagramApi {
 
     @GET("/v1/users/self/media/recent/")
     void listSelfMedia(@Query("access_token") String token,
+                       @Query("count") int count,
+                       @Query("max_id") String nextMaxId,
                        Callback<Envelope<MediaData>> cb);
 
     @GET("/v1/users/{user-id}/media/recent/")
     void listUserMedia(@Query("client_id") String clientId,
+                       @Query("count") int count,
+                       @Query("max_id") String nextMaxId,
                        @Path("user-id") String userId,
                        Callback<Envelope<MediaData>> cb);
 

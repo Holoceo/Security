@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/redmadintern/mikhalevich/security/ui/fragment/ImagesBaseFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/redmadintern/mikhalevich/security/ui/activity/GalleryDetailActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/redmadintern/mikhalevich/security/ui/fragment/SectionsFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/redmadintern/mikhalevich/security/ui/fragment/images/ImagesBaseFragment.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/redmadintern/mikhalevich/security/ui/view/ScaleView.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/redmadintern/mikhalevich/security/ui/view/ViewPagerFixed.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/redmadintern/mikhalevich/security/utils/Utils.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/background_toolbar_gallery_detail.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/btn_flat_background.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/toolbar_selectable_background.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_gallery_detail.xml" charset="windows-1251" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
